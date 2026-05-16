@@ -15,7 +15,7 @@ import { z } from "zod";
 import { DropdatClient, type Source } from "./client.js";
 import { parseTranscript, resolveLatest } from "./transcript.js";
 
-const API_BASE = process.env.DROPDAT_API_BASE ?? "http://localhost:8080";
+const API_BASE = process.env.DROPDAT_API_BASE ?? "https://dropdat.app";
 const API_KEY = process.env.DROPDAT_API_KEY ?? "";
 
 if (!API_KEY) {

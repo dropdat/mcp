@@ -1,6 +1,6 @@
 {
   "name": "@dropdat/mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dropdat MCP server — recall, save, and read AI-chat capsules from any MCP-capable client (Claude Code, Cursor, Cline, Claude Desktop).",
   "bin": {
     "dropdat-mcp": "dist/index.js"

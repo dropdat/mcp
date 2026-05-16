@@ -1,6 +1,6 @@
 # @dropdat/mcp
 
-MCP server for [dropdat](https://dropdat.app). Lets any MCP-capable AI client
+MCP server for [dropdat](../README.md). Lets any MCP-capable AI client
 (Claude Code, Cursor, Cline, Claude Desktop) recall, read, and save
 capsules in the user's dropdat library.
 
@@ -21,10 +21,9 @@ full semantic recall; without it the endpoint degrades to BM25.
 ## Install
 
 ```bash
-npm install -g @dropdat/mcp
-# or, from source:
-git clone https://github.com/dropdat/mcp.git
-cd mcp && npm install && npm run build
+cd mcp
+npm install
+npm run build
 ```
 
 ## Configure
@@ -34,13 +33,14 @@ shape `dk_live_…`). Export it:
 
 ```bash
 export DROPDAT_API_KEY=dk_live_xxx
-export DROPDAT_API_BASE=http://localhost:8080   # or your prod URL
+# Optional — defaults to https://dropdat.app, the hosted API.
+# Set this only if you're running the API locally or self-hosted.
+# export DROPDAT_API_BASE=http://localhost:8080
 ```
 
-For local dev with `DEV_AUTH_BYPASS=1` on the API, any non-empty
-`DROPDAT_API_KEY` value plus a JWT-shaped token will not work — the
-bypass uses `DEV_USER_ID` and ignores tokens. Use a real key against
-the running API.
+If you're self-hosting the API and have `DEV_AUTH_BYPASS=1` enabled,
+the API ignores tokens entirely and assumes `DEV_USER_ID`. Use a real
+key against any normal deployment.
 
 ## Wire into a client
 
@@ -55,8 +55,7 @@ Add to `~/.claude/mcp.json` (or project `.mcp.json`):
       "command": "node",
       "args": ["/absolute/path/to/backend/mcp/dist/index.js"],
       "env": {
-        "DROPDAT_API_KEY": "dk_live_xxx",
-        "DROPDAT_API_BASE": "http://localhost:8080"
+        "DROPDAT_API_KEY": "dk_live_xxx"
       }
     }
   }
