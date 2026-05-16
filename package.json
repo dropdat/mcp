@@ -12,9 +12,28 @@
     "start": "node dist/index.js",
     "prepublishOnly": "npm run build"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dropdat/mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dropdat/mcp/issues"
+  },
+  "homepage": "https://dropdat.app",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "dropdat",
+    "ai",
+    "claude",
+    "cursor",
+    "cline"
+  ],
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
