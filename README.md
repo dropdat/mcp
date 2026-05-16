@@ -1,6 +1,6 @@
 # @dropdat/mcp
 
-MCP server for [dropdat](../README.md). Lets any MCP-capable AI client
+MCP server for [dropdat](https://dropdat.app). Lets any MCP-capable AI client
 (Claude Code, Cursor, Cline, Claude Desktop) recall, read, and save
 capsules in the user's dropdat library.
 
@@ -21,9 +21,12 @@ full semantic recall; without it the endpoint degrades to BM25.
 ## Install
 
 ```bash
-cd mcp
-npm install
-npm run build
+# from npm (recommended — clients can also `npx -y @dropdat/mcp`)
+npm install -g @dropdat/mcp
+
+# or from source
+git clone https://github.com/dropdat/mcp.git
+cd mcp && npm install && npm run build
 ```
 
 ## Configure
@@ -52,8 +55,8 @@ Add to `~/.claude/mcp.json` (or project `.mcp.json`):
 {
   "mcpServers": {
     "dropdat": {
-      "command": "node",
-      "args": ["/absolute/path/to/backend/mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "@dropdat/mcp"],
       "env": {
         "DROPDAT_API_KEY": "dk_live_xxx"
       }
@@ -64,8 +67,8 @@ Add to `~/.claude/mcp.json` (or project `.mcp.json`):
 
 ### Cursor / Cline / Claude Desktop
 
-Same shape — point `command`/`args` at `dist/index.js` and pass the
-two env vars. Transport is stdio.
+Same shape — `npx -y @dropdat/mcp` as the command, `DROPDAT_API_KEY`
+in env. Transport is stdio.
 
 ## Develop
 
