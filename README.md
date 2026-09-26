@@ -4,19 +4,29 @@ MCP server for [dropdat](https://dropdat.app). Lets any MCP-capable AI client
 (Claude Code, Cursor, Cline, Claude Desktop) recall, read, and save
 capsules in the user's dropdat library.
 
+## Architecture
+
+![Dropdat MCP architecture](./mcp.svg)
+
+## Python + LangGraph demo
+
+The [Python demo](./python-demo/README.md) exposes the same five tools through
+FastMCP and routes execution with LangGraph. It supports a local SQLite demo
+and the existing Go API. See its README for setup and the stdio walkthrough.
+
 ## Tools
 
 | Tool | Purpose |
 |------|---------|
-| `dropdat_recall`  | Keyword-search capsules (titles, summaries, message bodies). |
+| `dropdat_recall`  | Hybrid vector + full-text search over the capsule library. |
 | `dropdat_read`    | Fetch one capsule's full contents by id (optional lineage). |
 | `dropdat_list`    | Browse recent capsules, optional tag filter. |
 | `dropdat_capsule` | Save the current conversation slice as a new capsule (model picks the messages). |
-| `dropdat_autocapsule` | Save the **full verbatim** Claude Code session by reading the on-disk `.jsonl` transcript. |
+| `dropdat_autocapsule` | Import filtered user/assistant text and nested tool-result text from a Claude Code `.jsonl` transcript. |
 
 `dropdat_recall` calls the hybrid `/capsules/search` endpoint
-(vector + BM25 fused via RRF). Set `OPENAI_API_KEY` on the API for
-full semantic recall; without it the endpoint degrades to BM25.
+(vector cosine ranking + PostgreSQL full-text ranking fused via RRF). Set `OPENAI_API_KEY` on the API for
+full semantic recall; without it the endpoint falls back to full-text search.
 
 ## Install
 

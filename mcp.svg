@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1110" viewBox="0 0 1600 1110" role="img" aria-labelledby="title desc">
+<title id="title">Dropdat MCP architecture</title><desc id="desc">Five TypeScript MCP tools validate inputs, call the shared Go API, and return context to the host. Transcript import parses explicitly selected or discovered Claude Code JSONL files.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0L8 4L0 8Z" fill="#475569"/></marker></defs>
+<rect width="1600" height="1110" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172554}.title{font-size:42px;font-weight:700}.heading{font-size:22px;font-weight:700}.body{font-size:18px}.small{font-size:16px}.mono{font-family:Consolas,monospace;font-size:15px}.label{font-size:13px;font-weight:700;letter-spacing:1px}</style>
+<text x="800" y="62" class="title" text-anchor="middle">Dropdat MCP</text>
+<text x="800" y="99" class="heading" text-anchor="middle">Five tools. One API bridge.</text>
+<rect x="40" y="135" width="350" height="115" rx="12" fill="#eff6ff" stroke="#93c5fd"/>
+<text x="215" y="170" class="heading" text-anchor="middle">AI host</text>
+<text x="215" y="202" class="body" text-anchor="middle">Claude Code / Cursor / Cline</text>
+<text x="215" y="230" class="body" text-anchor="middle">Claude Desktop</text>
+<rect x="485" y="135" width="630" height="115" rx="12" fill="#eef2ff" stroke="#a5b4fc"/>
+<text x="800" y="168" class="heading" text-anchor="middle">index.ts — MCP server</text>
+<text x="800" y="199" class="body" text-anchor="middle">tools/list: names, descriptions, JSON schemas</text>
+<text x="800" y="230" class="body" text-anchor="middle">tools/call: dispatch by name → Zod validation</text>
+<polyline points="390,194 485,194" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="435" y="178" class="small" text-anchor="middle">stdio</text>
+<rect x="1170" y="135" width="390" height="115" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="1365" y="169" class="heading" text-anchor="middle">Configuration</text>
+<text x="1365" y="202" class="mono" text-anchor="middle">DROPDAT_API_KEY required</text>
+<text x="1365" y="232" class="mono" text-anchor="middle">DROPDAT_API_BASE optional</text>
+<polyline points="800,250 800,285" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="800" y="312" class="heading" text-anchor="middle">Validated tool call → one implementation</text>
+<rect x="40" y="340" width="288" height="432" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="40" y="340" width="288" height="76" rx="12" fill="#172554" stroke="#172554"/>
+<text x="184" y="371" style="font-family:Arial;font-size:22px;font-weight:bold;fill:white" text-anchor="middle">01  Recall</text>
+<text x="184" y="397" style="font-family:Consolas,monospace;font-size:15px;fill:#bfdbfe" text-anchor="middle">dropdat_recall</text>
+<text x="58" y="443" class="label" text-anchor="start">INPUT</text>
+<text x="184" y="469" class="small" text-anchor="middle">query · tag? · limit</text>
+<text x="58" y="534" class="label" text-anchor="start">OPERATION</text>
+<text x="184" y="560" class="small" text-anchor="middle">client.search()</text>
+<text x="58" y="644" class="label" text-anchor="start">API REQUEST</text>
+<text x="184" y="670" class="mono" text-anchor="middle">POST</text>
+<text x="184" y="691" class="mono" text-anchor="middle">/capsules/search</text>
+<polyline points="184,772 184,790" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<rect x="348" y="340" width="288" height="432" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="348" y="340" width="288" height="76" rx="12" fill="#172554" stroke="#172554"/>
+<text x="492" y="371" style="font-family:Arial;font-size:22px;font-weight:bold;fill:white" text-anchor="middle">02  Read</text>
+<text x="492" y="397" style="font-family:Consolas,monospace;font-size:15px;fill:#bfdbfe" text-anchor="middle">dropdat_read</text>
+<text x="366" y="443" class="label" text-anchor="start">INPUT</text>
+<text x="492" y="469" class="small" text-anchor="middle">UUID · includeLineage?</text>
+<text x="366" y="534" class="label" text-anchor="start">OPERATION</text>
+<text x="492" y="560" class="small" text-anchor="middle">client.get()</text>
+<text x="492" y="583" class="small" text-anchor="middle">Optional: client.lineage()</text>
+<text x="366" y="644" class="label" text-anchor="start">API REQUEST</text>
+<text x="492" y="670" class="mono" text-anchor="middle">GET /capsules/{id}</text>
+<text x="492" y="691" class="mono" text-anchor="middle">Optional GET</text>
+<text x="492" y="712" class="mono" text-anchor="middle">/capsules/{id}/lineage</text>
+<polyline points="492,772 492,790" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<rect x="656" y="340" width="288" height="432" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="656" y="340" width="288" height="76" rx="12" fill="#172554" stroke="#172554"/>
+<text x="800" y="371" style="font-family:Arial;font-size:22px;font-weight:bold;fill:white" text-anchor="middle">03  List</text>
+<text x="800" y="397" style="font-family:Consolas,monospace;font-size:15px;fill:#bfdbfe" text-anchor="middle">dropdat_list</text>
+<text x="674" y="443" class="label" text-anchor="start">INPUT</text>
+<text x="800" y="469" class="small" text-anchor="middle">tag? · limit</text>
+<text x="674" y="534" class="label" text-anchor="start">OPERATION</text>
+<text x="800" y="560" class="small" text-anchor="middle">client.list()</text>
+<text x="674" y="644" class="label" text-anchor="start">API REQUEST</text>
+<text x="800" y="670" class="mono" text-anchor="middle">GET /capsules</text>
+<text x="800" y="691" class="mono" text-anchor="middle">tag / limit query params</text>
+<polyline points="800,772 800,790" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<rect x="964" y="340" width="288" height="432" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="964" y="340" width="288" height="76" rx="12" fill="#172554" stroke="#172554"/>
+<text x="1108" y="371" style="font-family:Arial;font-size:22px;font-weight:bold;fill:white" text-anchor="middle">04  Save</text>
+<text x="1108" y="397" style="font-family:Consolas,monospace;font-size:15px;fill:#bfdbfe" text-anchor="middle">dropdat_capsule</text>
+<text x="982" y="443" class="label" text-anchor="start">INPUT</text>
+<text x="1108" y="469" class="small" text-anchor="middle">title · messages · source</text>
+<text x="1108" y="492" class="small" text-anchor="middle">summary · tags · sourceUrl</text>
+<text x="982" y="534" class="label" text-anchor="start">OPERATION</text>
+<text x="1108" y="560" class="small" text-anchor="middle">Generate UUID v7</text>
+<text x="1108" y="583" class="small" text-anchor="middle">Fill missing timestamps</text>
+<text x="982" y="644" class="label" text-anchor="start">API REQUEST</text>
+<text x="1108" y="670" class="mono" text-anchor="middle">POST /capsules</text>
+<polyline points="1108,772 1108,790" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<rect x="1272" y="340" width="288" height="432" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+<rect x="1272" y="340" width="288" height="76" rx="12" fill="#172554" stroke="#172554"/>
+<text x="1416" y="371" style="font-family:Arial;font-size:22px;font-weight:bold;fill:white" text-anchor="middle">05  Import transcript</text>
+<text x="1416" y="397" style="font-family:Consolas,monospace;font-size:15px;fill:#bfdbfe" text-anchor="middle">dropdat_autocapsule</text>
+<text x="1290" y="443" class="label" text-anchor="start">INPUT</text>
+<text x="1416" y="469" class="small" text-anchor="middle">title · transcriptPath?</text>
+<text x="1416" y="492" class="small" text-anchor="middle">or cwd?</text>
+<text x="1290" y="534" class="label" text-anchor="start">OPERATION</text>
+<text x="1416" y="560" class="small" text-anchor="middle">transcript.ts: locate JSONL</text>
+<text x="1416" y="583" class="small" text-anchor="middle">Parse visible text</text>
+<text x="1416" y="606" class="small" text-anchor="middle">Generate UUID v7</text>
+<text x="1290" y="644" class="label" text-anchor="start">API REQUEST</text>
+<text x="1416" y="670" class="mono" text-anchor="middle">POST /capsules</text>
+<polyline points="1416,772 1416,790" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<text x="800" y="818" class="small" text-anchor="middle">All endpoint paths above are relative to /api/v1</text>
+<rect x="40" y="840" width="1520" height="115" rx="12" fill="#eff6ff" stroke="#93c5fd"/>
+<text x="800" y="872" class="heading" text-anchor="middle">client.ts — Shared HTTP request / response boundary</text>
+<text x="230" y="909" class="heading" text-anchor="middle">Build URL</text>
+<text x="230" y="938" class="small" text-anchor="middle">API base + route</text>
+<polyline points="355,916 480,916" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="610" y="909" class="heading" text-anchor="middle">Authenticate</text>
+<text x="610" y="938" class="small" text-anchor="middle">Bearer API key</text>
+<polyline points="735,916 860,916" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="990" y="909" class="heading" text-anchor="middle">Go API</text>
+<text x="990" y="938" class="small" text-anchor="middle">JSON request / response</text>
+<polyline points="1115,916 1240,916" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1370" y="909" class="heading" text-anchor="middle">Return to host</text>
+<text x="1370" y="938" class="small" text-anchor="middle">MCP text content</text>
+<rect x="40" y="973" width="1520" height="47" rx="12" fill="#fff1f2" stroke="#fda4af"/>
+<text x="800" y="1003" class="body" text-anchor="middle">Validation / file I/O / HTTP failure → MCP error response with isError: true</text>
+<text x="800" y="1050" class="small" text-anchor="middle">Backend owns persistence, hybrid retrieval, embeddings, authorization and quotas.</text>
+<text x="800" y="1078" class="small" text-anchor="middle">Transcript import keeps text + nested tool results; skips meta, sidechain, thinking and tool-use blocks.</text>
+<text x="800" y="1101" class="small" text-anchor="middle">Import is filtered text, not a raw backup. Explicit paths avoid OS-specific transcript-discovery ambiguity.</text>
+</svg>
